@@ -1,15 +1,19 @@
 package com.slashmobility.seleccionnexoandroid.ui.main
 
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
@@ -34,6 +38,11 @@ class GroupFragment: Fragment() {
     private lateinit var viewModel: GroupViewModel
     private lateinit var rlProgress: RelativeLayout
 
+    private lateinit var rvGroups: RecyclerView
+    private lateinit var llEmptyGroups : LinearLayout
+
+    private lateinit var groupsAdapter : GroupsAdapter
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
@@ -44,7 +53,7 @@ class GroupFragment: Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GroupViewModel::class.java)
 
-        rlProgress = view.findViewById<View>(R.id.rlProgress) as RelativeLayout
+        initView(view)
 
         getGroupList()
 
@@ -83,6 +92,7 @@ class GroupFragment: Fragment() {
                         viewModel.addGroupToDB(group)
                     }
 
+                    setupView(groups)
                 }
 
                 Status.ERROR -> {
@@ -94,4 +104,23 @@ class GroupFragment: Fragment() {
         })
     }
 
+    private fun initView(view: View){
+        rlProgress = view.findViewById<View>(R.id.rlProgress) as RelativeLayout
+
+        rvGroups = view.findViewById<View>(R.id.rvGroups) as RecyclerView
+        llEmptyGroups = view.findViewById<View>(R.id.llEmptyGroups) as LinearLayout
+    }
+
+    private fun setupView(groups: List<Group>?){
+        groups?.let { groupsData ->
+            if (groupsData.isNotEmpty()) {
+                groupsAdapter = GroupsAdapter(groupsData, context!!)
+                rvGroups.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+                rvGroups.adapter = groupsAdapter
+            }else{
+                rvGroups.visibility = View.GONE
+                llEmptyGroups.visibility = View.VISIBLE
+            }
+        }
+    }
 }

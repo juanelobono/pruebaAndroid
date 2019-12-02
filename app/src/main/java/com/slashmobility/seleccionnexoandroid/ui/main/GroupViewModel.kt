@@ -62,9 +62,9 @@ class GroupViewModel @Inject constructor(
      * JSON responses to Object
      */
 
-    fun getGroupList(jsonElement: JsonElement): List<Group>? {
-        val json = Gson().fromJson(jsonElement, GroupResponse::class.java)
-        return json.groups
+    fun getGroupList(jsonElement: JsonElement): List<Group> {
+        val json = Gson().fromJson(jsonElement, Group::class.java)
+        return arrayListOf()
     }
 
     /**
