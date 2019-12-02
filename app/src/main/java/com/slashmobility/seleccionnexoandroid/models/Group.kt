@@ -18,7 +18,8 @@ data class Group(
     @SerializedName("defaultImageUrl") var imageUrl: String = "",
     @SerializedName("description") var description: String = "",
     @SerializedName("descriptionShort") var shortDescription: String = "",
-    @SerializedName("name") var name: String = ""
+    @SerializedName("name") var name: String = "",
+    var isFavorite: Boolean = false
     ) : Parcelable {
 
     fun customMethod(): String {

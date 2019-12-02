@@ -17,10 +17,16 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
         val fragment = GroupDetailFragment()
             .apply {
             arguments = Bundle().apply {
-                putParcelable("group", group)
+                putParcelable(PARAM_GROUP, group)
             }
         }
         loadFragment(fragment)
+    }
+
+    companion object {
+
+        private val TAG = MainActivity::class.java.simpleName + " ========>"
+        const val PARAM_GROUP = "group"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +34,7 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(mainToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         loadFragment(GroupFragment())
     }
@@ -39,6 +46,7 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .addToBackStack(null)
                 .commit()
         }
     }

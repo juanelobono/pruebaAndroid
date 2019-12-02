@@ -98,6 +98,16 @@ class GroupDetailViewModel @Inject constructor(
         groupRepository.addGroupImages(groupImages)
     }
 
+    fun setFav(group: Group) {
+        group.isFavorite = true
+        groupRepository.updateGroup(group)
+    }
+
+    fun deleteFav(group: Group) {
+        group.isFavorite = false
+        groupRepository.updateGroup(group)
+    }
+
     /**
      * Clear disposables
      */

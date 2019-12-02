@@ -33,6 +33,10 @@ class GroupRepository(
         return groupDao.getAll()
     }
 
+    override fun getFavGroups(): List<Group> {
+        return groupDao.getFavs()
+    }
+
     override fun getGroupById(groupId: Long?): Group? {
 
         groupId?.let {

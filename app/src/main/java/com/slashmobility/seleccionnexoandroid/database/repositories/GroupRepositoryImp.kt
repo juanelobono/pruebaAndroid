@@ -11,6 +11,8 @@ interface GroupRepositoryImp {
 
     fun getGroups(): List<Group>
 
+    fun getFavGroups(): List<Group>
+
     fun getGroupById(groupId: Long?): Group?
 
     fun deleteGroup(group: Group)

@@ -21,6 +21,9 @@ interface GroupDao {
     @Query("SELECT * FROM Groups ORDER BY id DESC")
     fun getAll(): List<Group>
 
+    @Query("SELECT * FROM Groups WHERE isFavorite = 1 ORDER BY id DESC ")
+    fun getFavs(): List<Group>
+
     @Query("SELECT * FROM Groups WHERE id = :id LIMIT 1")
     fun getById(id: Long): Group
 
