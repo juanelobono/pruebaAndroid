@@ -7,5 +7,4 @@ package com.slashmobility.seleccionnexoandroid.utils
 object Urls {
 
     const val GROUPS = "groups.json"
-    const val IMAGES = "images"
 }

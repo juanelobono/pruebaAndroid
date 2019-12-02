@@ -2,8 +2,11 @@ package com.slashmobility.seleccionnexoandroid.domain
 
 import com.google.gson.JsonElement
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupDao
+import com.slashmobility.seleccionnexoandroid.database.daos.GroupImagesDao
+import com.slashmobility.seleccionnexoandroid.database.repositories.GroupImagesRepositoryImp
 import com.slashmobility.seleccionnexoandroid.database.repositories.GroupRepositoryImp
 import com.slashmobility.seleccionnexoandroid.models.Group
+import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
 import io.reactivex.Observable
 import javax.inject.Singleton
@@ -15,13 +18,16 @@ import javax.inject.Singleton
 @Singleton
 class GroupRepository(
     private val groupDao: GroupDao,
+    private val groupImagesDao: GroupImagesDao,
     private val apiClient: ApiClient
-):
-    GroupRepositoryImp {
+): GroupRepositoryImp,
+    GroupImagesRepositoryImp {
 
     /**
      * Local database
      */
+
+    //Groups
 
     override fun getGroups(): List<Group> {
         return groupDao.getAll()
@@ -53,6 +59,38 @@ class GroupRepository(
         groupDao.update(group)
     }
 
+    //Group images
+
+    override fun getGroupImages(): List<GroupImages> {
+        return groupImagesDao.getAll()
+    }
+
+    override fun getGroupImagesById(groupImageId: Long?): GroupImages? {
+
+        groupImageId?.let {
+
+            return groupImagesDao.getById(groupImageId)
+        }
+
+        return null
+    }
+
+    override fun deleteGroupImages(groupImage: GroupImages) {
+        groupImagesDao.delete(groupImage)
+    }
+
+    override fun deleteAllGroupsImages() {
+        groupImagesDao.deleteAll()
+    }
+
+    override fun addGroupImages(groupImage: GroupImages) {
+        groupImagesDao.insert(groupImage)
+    }
+
+    override fun updateGroupImages(groupImage: GroupImages) {
+        groupImagesDao.update(groupImage)
+    }
+
     /**
      * Remote api
      */
@@ -61,7 +99,7 @@ class GroupRepository(
         return apiClient.getGroupList()
     }
 
-    fun getGroupImages(groupId: Long): Observable<JsonElement> {
-        return apiClient.getGroupImages(groupId)
+    fun getGroupImages(url: String): Observable<JsonElement> {
+        return apiClient.getGroupImages(url)
     }
 }

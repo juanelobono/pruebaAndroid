@@ -15,9 +15,7 @@ interface ApiClient {
     @GET(Urls.GROUPS)
     fun getGroupList(): Observable<JsonElement>
 
-    @GET(Urls.IMAGES)
+    @GET
     fun getGroupImages(
-        @Query("groupId") groupId: Long
-    ): Observable<JsonElement>
-
+        @Url url: String): Observable<JsonElement>
 }

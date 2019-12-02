@@ -2,6 +2,7 @@ package com.slashmobility.seleccionnexoandroid.ui.main
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,11 @@ import javax.inject.Inject
  */
 
 class GroupFragment: Fragment() {
+
+    companion object {
+
+        private val TAG = GroupFragment::class.java.simpleName + " ========>"
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -80,7 +86,7 @@ class GroupFragment: Fragment() {
                 }
 
                 Status.ERROR -> {
-                    apiResponse.error
+                    Log.d(TAG, apiResponse.error.toString())
                     rlProgress.visibility = View.GONE
 
                 }

@@ -4,6 +4,7 @@ package com.slashmobility.seleccionnexoandroid.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
+import com.slashmobility.seleccionnexoandroid.ui.detail.GroupDetailViewModel
 import com.slashmobility.seleccionnexoandroid.ui.main.GroupViewModel
 import dagger.Binds
 import dagger.Module
@@ -20,8 +21,8 @@ internal abstract class ViewModelModule {
     @ViewModelKey(GroupViewModel::class)
     protected abstract fun groupViewModel(groupViewModel: GroupViewModel): ViewModel
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(GroupDetailViewModel::class)
-//    protected abstract fun groupDetailViewModel(groupDetailViewModel: GroupDetailViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(GroupDetailViewModel::class)
+    protected abstract fun groupDetailViewModel(groupDetailViewModel: GroupDetailViewModel): ViewModel
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.slashmobility.seleccionnexoandroid.database.AppDatabase
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupDao
+import com.slashmobility.seleccionnexoandroid.database.daos.GroupImagesDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -28,7 +29,13 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    internal fun provideMovieDao(appDatabase: AppDatabase): GroupDao {
+    internal fun provideGroupDao(appDatabase: AppDatabase): GroupDao {
         return appDatabase.groupDao()
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideGroupImagesDao(appDatabase: AppDatabase): GroupImagesDao {
+        return appDatabase.groupImagesDao()
     }
 }

@@ -1,13 +1,15 @@
-package com.slashmobility.seleccionnexoandroid.ui.main
+package com.slashmobility.seleccionnexoandroid.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
+import com.slashmobility.seleccionnexoandroid.BuildConfig
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupDao
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupImagesDao
 import com.slashmobility.seleccionnexoandroid.domain.GroupRepository
 import com.slashmobility.seleccionnexoandroid.models.Group
+import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
 import com.slashmobility.seleccionnexoandroid.remote.responses.GroupResponse
@@ -22,7 +24,7 @@ import javax.inject.Inject
  */
 
 
-class GroupViewModel @Inject constructor(
+class GroupDetailViewModel @Inject constructor(
     groupDao: GroupDao,
     groupImagesDao: GroupImagesDao,
     apiClient: ApiClient
@@ -32,37 +34,42 @@ class GroupViewModel @Inject constructor(
         GroupRepository(groupDao, groupImagesDao, apiClient)
 
     private val disposables = CompositeDisposable()
-    private val groupListResponseLiveData = MutableLiveData<ApiResponse>()
+    private val groupImagesResponseLiveData = MutableLiveData<ApiResponse>()
 
     /**
      * Requests
      */
 
-    fun getGroupListRequest() {
+    fun getGroupImagesRequest(groupId: Long) {
 
-        disposables.add(groupRepository.getGroupList()
+        val url = getImagesUrl(groupId)
+        disposables.add(groupRepository.getGroupImages(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { groupListResponseLiveData.setValue(ApiResponse.loading()) }
+            .doOnSubscribe { groupImagesResponseLiveData.setValue(ApiResponse.loading()) }
             .subscribe(
-                { result -> groupListResponseLiveData.setValue(ApiResponse.success(result)) },
-                { throwable -> groupListResponseLiveData.setValue(ApiResponse.error(throwable)) }
+                { result -> groupImagesResponseLiveData.setValue(ApiResponse.success(result)) },
+                { throwable -> groupImagesResponseLiveData.setValue(ApiResponse.error(throwable)) }
             ))
+    }
+
+    private fun getImagesUrl(groupId: Long): String {
+        return BuildConfig.API_HOST + "images/$groupId.json"
     }
 
     /**
      * LiveData responses
      */
 
-    fun getGroupListResponse(): MutableLiveData<ApiResponse> {
-        return groupListResponseLiveData
+    fun getGroupImagesResponse(): MutableLiveData<ApiResponse> {
+        return groupImagesResponseLiveData
     }
 
     /**
      * JSON responses to Object
      */
 
-    fun getGroupList(jsonElement: JsonElement): List<Group>? {
+    fun getGroupImages(jsonElement: JsonElement): List<Group>? {
         val json = Gson().fromJson(jsonElement, GroupResponse::class.java)
         return json.groups
     }
@@ -71,12 +78,12 @@ class GroupViewModel @Inject constructor(
      * Local repository
      */
 
-    fun getGroupListFromDB(): List<Group> {
-        return groupRepository.getGroups()
+    fun getGroupImagesFromDB(): List<GroupImages> {
+        return groupRepository.getGroupImages()
     }
 
-    fun addGroupToDB(group: Group) {
-        groupRepository.addGroup(group)
+    fun addGroupImagesToDB(groupImages: GroupImages) {
+        groupRepository.addGroupImages(groupImages)
     }
 
     /**
