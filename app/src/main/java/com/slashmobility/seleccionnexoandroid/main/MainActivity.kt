@@ -1,7 +1,8 @@
-package com.slashmobility.seleccionnexoandroid
+package com.slashmobility.seleccionnexoandroid.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.slashmobility.seleccionnexoandroid.R
 
 class MainActivity : AppCompatActivity() {
 
