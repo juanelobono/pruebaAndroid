@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.slashmobility.seleccionnexoandroid.BuildConfig
-import com.slashmobility.seleccionnexoandroid.remote.ApiClient
+import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

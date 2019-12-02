@@ -1,4 +1,4 @@
-package com.slashmobility.seleccionnexoandroid.remote
+package com.slashmobility.seleccionnexoandroid.remote.api
 
 import com.google.gson.JsonElement
 import com.slashmobility.seleccionnexoandroid.utils.Urls

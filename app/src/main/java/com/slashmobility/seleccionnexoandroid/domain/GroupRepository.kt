@@ -4,7 +4,7 @@ import com.google.gson.JsonElement
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupDao
 import com.slashmobility.seleccionnexoandroid.database.repositories.GroupRepositoryImp
 import com.slashmobility.seleccionnexoandroid.models.Group
-import com.slashmobility.seleccionnexoandroid.remote.ApiClient
+import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
 import io.reactivex.Observable
 import javax.inject.Singleton
 
@@ -15,7 +15,8 @@ import javax.inject.Singleton
 @Singleton
 class GroupRepository(
     private val groupDao: GroupDao,
-    private val apiClient: ApiClient):
+    private val apiClient: ApiClient
+):
     GroupRepositoryImp {
 
     /**

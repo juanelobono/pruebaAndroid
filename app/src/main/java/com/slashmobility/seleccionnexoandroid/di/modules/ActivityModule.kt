@@ -1,6 +1,6 @@
 package com.slashmobility.seleccionnexoandroid.di.modules
 
-import com.slashmobility.seleccionnexoandroid.main.MainActivity
+import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
