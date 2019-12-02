@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/placeholder"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deporte"
+            android:alpha="0.7"
+            android:background="@color/textBackground"
+            android:layout_marginTop="@dimen/margin_text"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_marginStart="@dimen/margin_text"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10/11/12"
+            android:alpha="0.7"
+            android:background="@color/textBackground"
+            android:layout_marginTop="@dimen/margin_text"
+            android:layout_marginRight="@dimen/margin_text"
+            android:layout_marginEnd="@dimen/margin_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grupo de seguidores de fútbol. Todas las ligas del mundo."
+            android:alpha="0.7"
+            android:background="@color/textBackground"
+            android:layout_marginBottom="@dimen/margin_text"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_marginStart="@dimen/margin_text"
+            android:layout_marginEnd="@dimen/margin_text"
+            android:layout_marginRight="@dimen/margin_text"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

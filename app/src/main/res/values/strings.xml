@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SeleccionNexoAndroid</string>
+    
+    <string name="empty_groups">No hay grupos</string>
 </resources>
