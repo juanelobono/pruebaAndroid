@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor">
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,42 +26,42 @@
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/placeholder"/>
+            android:src="@mipmap/placeholder" />
 
         <TextView
-            style="@style/TextGroupPrimary"
             android:id="@+id/tvName"
+            style="@style/TextGroupPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deporte"
-            android:layout_marginTop="@dimen/margin_text"
-            android:layout_marginLeft="@dimen/margin_text"
-            android:layout_marginStart="@dimen/margin_text"/>
-
-        <TextView
-            style="@style/TextGroupSecondary"
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10/11/12"
-            android:layout_marginTop="@dimen/margin_text"
-            android:layout_marginRight="@dimen/margin_text"
-            android:layout_marginEnd="@dimen/margin_text"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
-
-        <TextView
-            style="@style/TextGroupSecondary"
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Grupo de seguidores de fútbol. Todas las ligas del mundo."
-            android:layout_marginBottom="@dimen/margin_text"
-            android:layout_marginLeft="@dimen/margin_text"
             android:layout_marginStart="@dimen/margin_text"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_marginTop="@dimen/margin_text"
+            android:text="Deporte" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/TextGroupSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_text"
             android:layout_marginEnd="@dimen/margin_text"
             android:layout_marginRight="@dimen/margin_text"
-            android:layout_alignParentBottom="true" />
+            android:text="10/11/12" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/TextGroupSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/margin_text"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_marginEnd="@dimen/margin_text"
+            android:layout_marginRight="@dimen/margin_text"
+            android:layout_marginBottom="@dimen/margin_text"
+            android:text="Grupo de seguidores de fútbol. Todas las ligas del mundo." />
 
     </RelativeLayout>
 
@@ -64,20 +78,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_favorite_border_black"/>
+            android:src="@mipmap/ic_favorite_border_black" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/margin_text">
 
         <TextView
-            style="@style/TextGroupDescription"
             android:id="@+id/tvDescriptionLong"
+            style="@style/TextGroupDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Las definiciones parten desde el seno de las culturas, y así, el sentido de las expresiones musicales se ve afectado por cuestiones psicológicas, sociales, culturales e históricas. De esta forma, surgen múltiples y diversas definiciones que pueden ser válidas en el momento de expresar qué se entiende por música. Ninguna, sin embargo, puede ser considerada como perfecta o absoluta.\n\nUna definición bastante amplia determina que música es sonoridad organizada (según una formulación perceptible, coherente y significativa). Esta definición parte de que —en aquello a lo que consensualmente se puede denominar música— se pueden percibir ciertos patrones del flujo sonoro en función de cómo las propiedades del sonido son aprendidas y procesadas por los humanos (hay incluso quienes consideran que también por los animales).\n\nHoy en día es frecuente trabajar con un concepto de música basado en tres atributos esenciales: que utiliza sonidos, que es un producto humano (y en este sentido, artificial) y que predomina la función estética. Si tomáramos en cuenta solo los dos primeros elementos de la definición, nada diferenciaría a la música del lenguaje. En cuanto a la función estética, se trata de un punto bastante discutible; así, por ejemplo, un jingle publicitario no deja de ser música por cumplir una función no estética (tratar de vender una mercancía). Por otra parte, hablar de una función estética presupone una idea de la música (y del arte en general) que funciona en forma autónoma, ajena al funcionamiento de la sociedad, tal como la vemos en la teoría del arte del filósofo Immanuel Kant.\n\nJean-Jacques Rousseau, autor de las voces musicales en L'Encyclopédie de Diderot, después recogidas en su Dictionnaire de la Musique,1 la definió como el «arte de combinar los sonidos de una manera agradable al oído».2\n\nSegún el compositor Claude Debussy, la música es «un total de fuerzas dispersas expresadas en un proceso sonoro que incluye: el instrumento, el instrumentista, el creador y su obra, un medio propagador y un sistema receptor».\n\nLa definición más habitual en los manuales de música se parece bastante a esta: «la música es el arte del bien combinar los sonidos en el tiempo». Esta definición no se detiene a explicar lo que es el arte, y presupone que hay combinaciones bien hechas y otras que no lo son, lo que es por lo menos discutible.\n\nAlgunos eruditos han definido y estudiado a la música como un conjunto de tonos ordenados de manera horizontal (melodía) y vertical (armonía). Este orden o estructura que debe tener un grupo de sonidos para ser llamados música está, por ejemplo, presente en las aseveraciones del filósofo Alemán Goethe cuando la comparaba con la arquitectura, definiendo metafóricamente a la arquitectura como música congelada. La mayoría de los estudiosos coincide en el aspecto de la estructura, es decir, en el hecho de que la música implica una organización; pero algunos teóricos modernos difieren en que el resultado deba ser placentero o agradable."/>
+            android:text="Las definiciones parten desde el seno de las culturas, y así, el sentido de las expresiones musicales se ve afectado por cuestiones psicológicas, sociales, culturales e históricas. De esta forma, surgen múltiples y diversas definiciones que pueden ser válidas en el momento de expresar qué se entiende por música. Ninguna, sin embargo, puede ser considerada como perfecta o absoluta.\n\nUna definición bastante amplia determina que música es sonoridad organizada (según una formulación perceptible, coherente y significativa). Esta definición parte de que —en aquello a lo que consensualmente se puede denominar música— se pueden percibir ciertos patrones del flujo sonoro en función de cómo las propiedades del sonido son aprendidas y procesadas por los humanos (hay incluso quienes consideran que también por los animales).\n\nHoy en día es frecuente trabajar con un concepto de música basado en tres atributos esenciales: que utiliza sonidos, que es un producto humano (y en este sentido, artificial) y que predomina la función estética. Si tomáramos en cuenta solo los dos primeros elementos de la definición, nada diferenciaría a la música del lenguaje. En cuanto a la función estética, se trata de un punto bastante discutible; así, por ejemplo, un jingle publicitario no deja de ser música por cumplir una función no estética (tratar de vender una mercancía). Por otra parte, hablar de una función estética presupone una idea de la música (y del arte en general) que funciona en forma autónoma, ajena al funcionamiento de la sociedad, tal como la vemos en la teoría del arte del filósofo Immanuel Kant.\n\nJean-Jacques Rousseau, autor de las voces musicales en L'Encyclopédie de Diderot, después recogidas en su Dictionnaire de la Musique,1 la definió como el «arte de combinar los sonidos de una manera agradable al oído».2\n\nSegún el compositor Claude Debussy, la música es «un total de fuerzas dispersas expresadas en un proceso sonoro que incluye: el instrumento, el instrumentista, el creador y su obra, un medio propagador y un sistema receptor».\n\nLa definición más habitual en los manuales de música se parece bastante a esta: «la música es el arte del bien combinar los sonidos en el tiempo». Esta definición no se detiene a explicar lo que es el arte, y presupone que hay combinaciones bien hechas y otras que no lo son, lo que es por lo menos discutible.\n\nAlgunos eruditos han definido y estudiado a la música como un conjunto de tonos ordenados de manera horizontal (melodía) y vertical (armonía). Este orden o estructura que debe tener un grupo de sonidos para ser llamados música está, por ejemplo, presente en las aseveraciones del filósofo Alemán Goethe cuando la comparaba con la arquitectura, definiendo metafóricamente a la arquitectura como música congelada. La mayoría de los estudiosos coincide en el aspecto de la estructura, es decir, en el hecho de que la música implica una organización; pero algunos teóricos modernos difieren en que el resultado deba ser placentero o agradable." />
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
+
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.slashmobility.seleccionnexoandroid.ui.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -63,8 +64,19 @@ class GroupViewModel @Inject constructor(
      */
 
     fun getGroupList(jsonElement: JsonElement): List<Group> {
-        val json = Gson().fromJson(jsonElement, Group::class.java)
-        return arrayListOf()
+
+        val groupList: ArrayList<Group> = arrayListOf()
+
+        val array = jsonElement.asJsonArray
+
+        array.forEach { item ->
+
+            Log.d("Item", item.toString())
+            val group = Gson().fromJson(item, Group::class.java)
+            groupList.add(group)
+        }
+
+        return groupList
     }
 
     /**

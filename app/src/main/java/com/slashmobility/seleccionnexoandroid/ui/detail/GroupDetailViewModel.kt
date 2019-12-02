@@ -1,5 +1,6 @@
 package com.slashmobility.seleccionnexoandroid.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -69,9 +70,20 @@ class GroupDetailViewModel @Inject constructor(
      * JSON responses to Object
      */
 
-    fun getGroupImages(jsonElement: JsonElement): List<Group>? {
-        val json = Gson().fromJson(jsonElement, GroupResponse::class.java)
-        return json.groups
+    fun getGroupImages(jsonElement: JsonElement): GroupImages {
+
+        val groupImages = GroupImages()
+        groupImages.images = arrayListOf()
+
+        val array = jsonElement.asJsonArray
+
+        array.forEach { item ->
+
+            Log.d("Item", item.toString())
+            groupImages.images?.add(item.toString())
+        }
+
+        return groupImages
     }
 
     /**

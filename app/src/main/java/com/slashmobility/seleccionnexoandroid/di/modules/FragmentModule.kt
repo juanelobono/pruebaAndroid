@@ -11,6 +11,6 @@ abstract class FragmentModule {
     @ContributesAndroidInjector
     abstract fun contributeGroupFragment(): GroupFragment
 
-//    @ContributesAndroidInjector
-//    abstract fun contributeGroupDetailFragment(): GroupDetailFragment
+    @ContributesAndroidInjector
+    abstract fun contributeGroupDetailFragment(): GroupDetailFragment
 }

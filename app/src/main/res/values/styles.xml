@@ -6,6 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textColor">@color/colorText</item>
         <item name="selectedTextColor">@color/colorAccent</item>
+        <item name="secondaryTextColor">@color/colorNormalText</item>
         <item name="backgroundColor">@color/colorBackground</item>
         <item name="detailsColor">@color/colorDetails</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
