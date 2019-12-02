@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
 
-class GroupsAdapter(val groups : ArrayList<String>, private val context: Context) : RecyclerView.Adapter<GroupsAdapter.GroupsView>(){
+class GroupsAdapter(private val groups : List<Group>, private val context: Context) : RecyclerView.Adapter<GroupsAdapter.GroupsView>(){
+
+    private val datePattern : String = "dd-MM-yyyy"
 
     class GroupsView (view: View) : RecyclerView.ViewHolder(view) {
         val tvName = view.tvName!!
@@ -28,20 +31,20 @@ class GroupsAdapter(val groups : ArrayList<String>, private val context: Context
     }
 
     override fun onBindViewHolder(holder: GroupsView, position: Int) {
-        Group group = groups.get(position)
+        val group = groups.get(position)
 
-        holder.tvName.text =group.name
-        holder.tvDate.text =group.date
-        holder.tvDescription.text =group.descrption
+        holder.tvName.text = group.name
+        holder.tvDate.text = group.date.toString()
+        holder.tvDescription.text = group.description
 
+        //Load image and save in cache
         Glide.with(context)
-            .load(group.image)
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .skipMemoryCache(true) //2
-            .diskCacheStrategy(DiskCacheStrategy.ALL) //3
+            .load(group.imageUrl)
+            .placeholder(R.mipmap.placeholder)
+            .error(R.mipmap.placeholder)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.ivImage)
-
     }
 
 }

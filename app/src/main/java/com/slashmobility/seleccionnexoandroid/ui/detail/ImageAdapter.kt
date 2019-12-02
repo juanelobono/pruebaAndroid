@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.slashmobility.seleccionnexoandroid.R
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class ImageAdapter(private val context:Context,val images: List<String>) : PagerAdapter() {
+class ImageAdapter(private val context:Context,val imagesUrl: List<String>) : PagerAdapter() {
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_image, collection, false) as ViewGroup
 
-        setupView(view, images.get(position))
+        setupView(view, imagesUrl.get(position))
         collection.addView(view)
 
         return view
@@ -26,7 +26,7 @@ class ImageAdapter(private val context:Context,val images: List<String>) : Pager
     }
 
     override fun getCount(): Int {
-        return images.size
+        return imagesUrl.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
