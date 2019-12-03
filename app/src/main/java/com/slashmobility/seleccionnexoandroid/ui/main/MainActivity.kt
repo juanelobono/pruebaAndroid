@@ -7,21 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
 
         private val TAG = MainActivity::class.java.simpleName + " ========>"
+        const val IMAGES_GROUP = "images"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setSupportActionBar(mainToolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         loadFragment(GroupFragment())
     }
@@ -56,9 +53,8 @@ class MainActivity : AppCompatActivity() {
             R.id.manuRefresh ->  {
                 false
             }
-
-            R.id.manuFav ->  {
-                false
+            R.id.manuFav -> {
+               false
             }
 
             else -> false

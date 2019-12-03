@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -77,6 +80,9 @@ class GroupFragment: Fragment() {
             val groups = viewModel.getGroupListFromDB()
             setupView(groups)
         }
+
+        setupToolbar()
+        getGroupList()
 
         return view
     }
@@ -211,5 +217,17 @@ class GroupFragment: Fragment() {
 
             else -> false
         }
+    }
+
+    private fun setupToolbar(){
+        //Setup Toolbar MainActivity
+        val toolbar = activity!!.findViewById<View>(R.id.mainToolbar) as Toolbar
+        toolbar.title = getString(R.string.title_main_activity)
+        toolbar.setTitleTextColor(ContextCompat.getColor(context!!, R.color.md_white_1000))
+
+        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
     }
 }

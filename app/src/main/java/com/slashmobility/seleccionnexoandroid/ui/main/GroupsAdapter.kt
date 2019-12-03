@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import com.slashmobility.seleccionnexoandroid.models.Group
+import com.slashmobility.seleccionnexoandroid.utils.DateUtils
 import kotlinx.android.synthetic.main.item_group.view.*
 
 class GroupsAdapter(private val groups : List<Group>,
@@ -15,7 +16,6 @@ class GroupsAdapter(private val groups : List<Group>,
     RecyclerView.Adapter<GroupsAdapter.GroupsView>(){
 
     var onItemClick: ((Group) -> Unit)? = null
-    private val datePattern : String = "dd-MM-yyyy"
 
     inner class GroupsView (view: View): RecyclerView.ViewHolder(view) {
         val tvName = view.tvName!!
@@ -42,7 +42,7 @@ class GroupsAdapter(private val groups : List<Group>,
         val group = groups[position]
 
         holder.tvName.text = group.name
-        holder.tvDate.text = group.date.toString()
+        holder.tvDate.text = group?.date?.let { DateUtils.getDateTime(it) }
         holder.tvDescription.text = group.shortDescription
 
         //Load image and save in cache

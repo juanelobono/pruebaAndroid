@@ -13,7 +13,7 @@ import com.slashmobility.seleccionnexoandroid.models.ImagesConverter
  * Created by Leo ¯\_(ツ)_/¯ on 2019-12-02
  */
 
-@Database(entities = [Group::class, GroupImages::class], version = 3, exportSchema = false)
+@Database(entities = [Group::class, GroupImages::class], version = 4, exportSchema = false)
 @TypeConverters(ImagesConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

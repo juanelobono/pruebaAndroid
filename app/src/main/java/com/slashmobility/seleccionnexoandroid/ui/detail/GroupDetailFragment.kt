@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,6 +23,8 @@ import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
+import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity.Companion.IMAGES_GROUP
+import com.slashmobility.seleccionnexoandroid.utils.DateUtils
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -46,6 +50,7 @@ class GroupDetailFragment: Fragment() {
     private lateinit var tvDescription: TextView
     private lateinit var ivFav: AppCompatImageView
     private lateinit var tvDescriptionLong: TextView
+    private lateinit var toolbar: Toolbar
 
     private var group: Group? = null
 
@@ -83,7 +88,8 @@ class GroupDetailFragment: Fragment() {
             } else {
 
                 rlProgress.visibility = View.GONE
-                setupView(GroupImages())
+                val images = viewModel.getGroupImagesByIdFromDB(id)
+                setupView(images!!)
             }
         }
 
@@ -110,6 +116,10 @@ class GroupDetailFragment: Fragment() {
     }
 
     private fun initView(view: View) {
+        toolbar = activity!!.findViewById(R.id.mainToolbar) as Toolbar
+        toolbar.navigationIcon = ContextCompat.getDrawable(context!!, R.drawable.abc_ic_ab_back_material)
+
+        toolbar.setNavigationOnClickListener{ activity?.onBackPressed() }
 
         rlProgress = view.findViewById<View>(R.id.rlProgress) as RelativeLayout
         ivImage = view.findViewById<View>(R.id.ivImage) as ImageView
@@ -136,6 +146,7 @@ class GroupDetailFragment: Fragment() {
                         rlProgress.visibility = View.GONE
 
                         val images = viewModel.getGroupImages(apiResponse.data!!)
+                        images.id = group?.id!!
 
                         viewModel.addGroupImagesToDB(images)
 
@@ -152,9 +163,10 @@ class GroupDetailFragment: Fragment() {
     }
 
     private fun setupView(groupImages: GroupImages) {
+        toolbar.title = group?.name
 
         tvName.text = group?.name
-        tvDate.text = group?.date.toString()
+        tvDate.text = group?.date?.let { DateUtils.getDateTime(it) }
         tvDescription.text = group?.shortDescription
 
         group?.isFavorite?.let { isFavorite ->
@@ -174,5 +186,27 @@ class GroupDetailFragment: Fragment() {
 
             ivImage.loadImage(url)
         }
+
+        ivImage.setOnClickListener {
+            //Go Fragment Fav
+            val fragment = GroupImagesFragment()
+                .apply {
+                    arguments = Bundle().apply {
+                        putParcelable(IMAGES_GROUP, groupImages)
+                    }
+                }
+
+            addFragment(fragment)
+        }
+    }
+
+    private fun addFragment(fragment: Fragment) {
+
+        val ft = parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(tag)
+        ft.setReorderingAllowed(true)
+        ft.commit()
     }
 }

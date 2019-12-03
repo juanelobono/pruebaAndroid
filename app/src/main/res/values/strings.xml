@@ -4,4 +4,6 @@
     <string name="empty_groups">No hay grupos</string>
     <string name="text_menu_fav">Favoritos</string>
     <string name="text_menu_refresh">Refresh</string>
+
+    <string name="title_main_activity">Practica</string>
 </resources>
