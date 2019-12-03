@@ -7,20 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
-import com.slashmobility.seleccionnexoandroid.models.Group
-import com.slashmobility.seleccionnexoandroid.ui.detail.GroupDetailFragment
 
-class MainActivity : AppCompatActivity(), IShowGroupDetail {
-
-    override fun show(group: Group) {
-        val fragment = GroupDetailFragment()
-            .apply {
-            arguments = Bundle().apply {
-                putParcelable(PARAM_GROUP, group)
-            }
-        }
-        loadFragment(fragment)
-    }
+class MainActivity : AppCompatActivity() {
 
     companion object {
 
@@ -43,7 +31,6 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .addToBackStack(null)
                 .commit()
         }
     }
@@ -69,6 +56,10 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
             }
             R.id.manuFav -> {
                false
+            }
+
+            R.id.manuFav ->  {
+                false
             }
 
             else -> false

@@ -22,6 +22,7 @@ import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
+import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity.Companion.IMAGES_GROUP
 import com.slashmobility.seleccionnexoandroid.utils.DateUtils
@@ -63,7 +64,7 @@ class GroupDetailFragment: Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        group = arguments?.getParcelable(MainActivity.PARAM_GROUP)
+        group = arguments?.getParcelable(GroupFragment.PARAM_GROUP)
     }
 
     override fun onCreateView(
