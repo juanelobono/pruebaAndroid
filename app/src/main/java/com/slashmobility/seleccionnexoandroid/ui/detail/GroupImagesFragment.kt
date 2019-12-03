@@ -13,7 +13,7 @@ import com.slashmobility.seleccionnexoandroid.ui.main.IShowAppBar
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import dagger.android.support.AndroidSupportInjection
 
-class GroupImagesFragment : Fragment() {
+class GroupImagesFragment : Fragment(){
 
     companion object {
 
@@ -38,6 +38,7 @@ class GroupImagesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setHasOptionsMenu(true)
 
         groupImages = arguments?.getParcelable(MainActivity.IMAGES_GROUP)!!
@@ -58,6 +59,7 @@ class GroupImagesFragment : Fragment() {
 
     private fun initView(view: View) {
         viewPage = view.findViewById(R.id.viewPager)
+        //Setup Adapter and ViewPage
         imagesAdapter = ImageAdapter(context!!, groupImages.images)
         viewPage.adapter = imagesAdapter
     }

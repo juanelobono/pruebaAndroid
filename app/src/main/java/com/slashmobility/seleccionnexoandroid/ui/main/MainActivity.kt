@@ -60,11 +60,9 @@ class MainActivity : AppCompatActivity(), IShowAppBar {
             R.id.manuRefresh ->  {
                 false
             }
-
-            R.id.manuFav -> {
-               false
+            R.id.manuFav ->  {
+                false
             }
-
             else -> false
         }
     }
