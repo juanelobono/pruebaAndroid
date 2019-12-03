@@ -13,15 +13,14 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.isConnectedToNetwork
+import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
-import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -75,7 +74,36 @@ class GroupDetailFragment: Fragment() {
 
         group?.id?.let { id ->
 
-            getGroupList(id)
+            val isConnected = activity?.isConnectedToNetwork() ?: false
+
+            if (isConnected) {
+
+                getGroupList(id)
+
+            } else {
+
+                rlProgress.visibility = View.GONE
+                setupView(GroupImages())
+            }
+        }
+
+        ivFav.setOnClickListener {
+
+            group?.isFavorite?.let { isFavorite ->
+
+                val fav = !isFavorite
+
+                if (fav) {
+
+                    ivFav.setImageResource(R.drawable.ic_favorite_black)
+                    viewModel.setFav(group!!)
+
+                } else {
+
+                    ivFav.setImageResource(R.drawable.ic_favorite_border_black)
+                    viewModel.deleteFav(group!!)
+                }
+            }
         }
 
         return view
@@ -129,13 +157,22 @@ class GroupDetailFragment: Fragment() {
         tvDate.text = group?.date.toString()
         tvDescription.text = group?.shortDescription
 
+        group?.isFavorite?.let { isFavorite ->
+
+            if (isFavorite) {
+
+                ivFav.setImageResource(R.drawable.ic_favorite_black)
+
+            } else {
+
+                ivFav.setImageResource(R.drawable.ic_favorite_border_black)
+            }
+        }
+
         //Load image and save in cache
-        Glide.with(this)
-            .load(group?.imageUrl)
-            .placeholder(R.mipmap.placeholder)
-            .error(R.mipmap.placeholder)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(ivImage)
+        group?.imageUrl?.let { url ->
+
+            ivImage.loadImage(url)
+        }
     }
 }

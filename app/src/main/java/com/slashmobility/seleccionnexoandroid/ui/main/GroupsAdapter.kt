@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import com.slashmobility.seleccionnexoandroid.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
 
@@ -47,13 +46,7 @@ class GroupsAdapter(private val groups : List<Group>,
         holder.tvDescription.text = group.shortDescription
 
         //Load image and save in cache
-        Glide.with(context)
-            .load(group.imageUrl)
-            .placeholder(R.mipmap.placeholder)
-            .error(R.mipmap.placeholder)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.ivImage)
+        holder.ivImage.loadImage(group.imageUrl)
     }
 
 }

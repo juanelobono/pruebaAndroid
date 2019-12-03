@@ -52,8 +52,8 @@ class FavFragment: Fragment() {
 
     private fun initView(view: View) {
 
-        rvFavGroups = view.findViewById<View>(R.id.rvFavGroups) as RecyclerView
-        llEmptyFavGroups = view.findViewById<View>(R.id.llEmptyFavGroups) as LinearLayout
+        rvFavGroups = view.findViewById(R.id.rvFavGroups) as RecyclerView
+        llEmptyFavGroups = view.findViewById(R.id.llEmptyFavGroups) as LinearLayout
     }
 
     private fun setupRecycler() {

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.isConnectedToNetwork
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
@@ -64,7 +65,18 @@ class GroupFragment: Fragment() {
 
         initView(view)
 
-        getGroupList()
+        val isConnected = activity?.isConnectedToNetwork() ?: false
+
+        if (isConnected) {
+
+            getGroupList()
+
+        } else {
+
+            rlProgress.visibility = View.GONE
+            val groups = viewModel.getGroupListFromDB()
+            setupView(groups)
+        }
 
         return view
     }
@@ -108,7 +120,6 @@ class GroupFragment: Fragment() {
                     Status.ERROR -> {
                         Log.d(TAG, apiResponse.error.toString())
                         rlProgress.visibility = View.GONE
-
                     }
                 }
             })
