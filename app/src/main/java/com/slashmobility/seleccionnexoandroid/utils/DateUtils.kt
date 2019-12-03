@@ -5,12 +5,12 @@ import java.util.*
 
 object DateUtils {
 
-    private val patternDate : String = "MM/dd/yyyy"
+    private const val patternDate : String = "dd/MM/yyyy"
 
-    fun getDateTime(timesamp: Long): String {
+    fun getDateTime(timestamp: Long): String {
         return try {
-            val sdf = SimpleDateFormat(patternDate)
-            val netDate = Date(timesamp)
+            val sdf = SimpleDateFormat(patternDate, Locale.getDefault())
+            val netDate = Date(timestamp)
             sdf.format(netDate)
         } catch (e: Exception) {
             e.toString()

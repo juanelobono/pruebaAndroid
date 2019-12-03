@@ -42,7 +42,7 @@ class GroupsAdapter(private val groups : List<Group>,
         val group = groups[position]
 
         holder.tvName.text = group.name
-        holder.tvDate.text = group?.date?.let { DateUtils.getDateTime(it) }
+        holder.tvDate.text = group.date.let { DateUtils.getDateTime(it) }
         holder.tvDescription.text = group.shortDescription
 
         //Load image and save in cache

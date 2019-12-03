@@ -69,6 +69,19 @@ class GroupFragment: Fragment() {
 
         initView(view)
 
+        setupGroups()
+        setupToolbar()
+
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        exitFullscreen(activity!!)
+    }
+
+    private fun setupGroups() {
+
         val isConnected = activity?.isConnectedToNetwork() ?: false
 
         if (isConnected) {
@@ -81,16 +94,6 @@ class GroupFragment: Fragment() {
             val groups = viewModel.getGroupListFromDB()
             setupView(groups)
         }
-
-        setupToolbar()
-        getGroupList()
-
-        return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        exitFullscreen(activity!!)
     }
 
     private fun getGroupList() {
@@ -212,7 +215,7 @@ class GroupFragment: Fragment() {
         return when (item.itemId) {
 
             R.id.manuRefresh ->  {
-                getGroupList()
+                setupGroups()
                 true
             }
 
