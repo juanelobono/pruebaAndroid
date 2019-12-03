@@ -114,11 +114,13 @@ class GroupDetailFragment: Fragment() {
 
                 images?.let {
 
-                    setupView(it)
+                    setupView()
+                    setupImages(it)
 
                 } ?: run {
 
                     Log.e(TAG, "Group images null")
+                    setupView()
                 }
 
             }
@@ -166,7 +168,8 @@ class GroupDetailFragment: Fragment() {
 
                         viewModel.addGroupImagesToDB(images)
 
-                        setupView(images)
+                        setupView()
+                        setupImages(images)
                     }
 
                     Status.ERROR -> {
@@ -198,7 +201,7 @@ class GroupDetailFragment: Fragment() {
         viewModel.getGroupImagesRequest(groupId)
     }
 
-    private fun setupView(groupImages: GroupImages) {
+    private fun setupView() {
         toolbar.title = group?.name
 
         tvName.text = group?.name
@@ -222,6 +225,9 @@ class GroupDetailFragment: Fragment() {
 
             ivImage.loadImage(url)
         }
+    }
+
+    private fun setupImages(groupImages: GroupImages) {
 
         ivImage.setOnClickListener {
             //Go Fragment Fav

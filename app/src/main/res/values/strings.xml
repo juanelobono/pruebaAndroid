@@ -6,4 +6,6 @@
     <string name="text_menu_refresh">Refresh</string>
 
     <string name="title_main_activity">Practica</string>
+    <string name="title_fav_fragment">Favoritos</string>
+
 </resources>
