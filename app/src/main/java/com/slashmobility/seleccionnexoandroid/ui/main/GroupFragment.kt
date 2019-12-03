@@ -1,6 +1,5 @@
 package com.slashmobility.seleccionnexoandroid.ui.main
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -70,14 +69,10 @@ class GroupFragment: Fragment() {
         initView(view)
 
         setupGroups()
+        observeResult()
         setupToolbar()
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        exitFullscreen(activity!!)
     }
 
     private fun setupGroups() {
@@ -99,6 +94,9 @@ class GroupFragment: Fragment() {
     private fun getGroupList() {
 
         viewModel.getGroupListRequest()
+    }
+
+    private fun observeResult() {
 
         viewModel.getGroupListResponse()
             .observe(viewLifecycleOwner, Observer<ApiResponse> { apiResponse ->
@@ -160,6 +158,9 @@ class GroupFragment: Fragment() {
 
                     goToDetail(group)
                 }
+
+                rvGroups.visibility = View.VISIBLE
+                llEmptyGroups.visibility = View.GONE
 
             } else {
 
@@ -238,9 +239,5 @@ class GroupFragment: Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-    }
-
-    private fun exitFullscreen(activity: Activity) {
-        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 }
