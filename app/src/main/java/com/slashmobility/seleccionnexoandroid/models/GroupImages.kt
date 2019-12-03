@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.parcel.Parcelize
 
@@ -16,7 +15,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "GroupImages")
 @Parcelize
 data class GroupImages(
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey var id: Long = 0,
     var images: ArrayList<String>? = null
     ) : Parcelable
 

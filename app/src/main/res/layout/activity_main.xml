@@ -8,7 +8,7 @@
     tools:context=".ui.main.MainActivity">
     
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/actionBar"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 

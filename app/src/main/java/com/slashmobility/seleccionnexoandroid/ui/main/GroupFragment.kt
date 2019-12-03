@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.isConnectedToNetwork
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
@@ -67,6 +68,20 @@ class GroupFragment: Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GroupViewModel::class.java)
 
         initView(view)
+
+        val isConnected = activity?.isConnectedToNetwork() ?: false
+
+        if (isConnected) {
+
+            getGroupList()
+
+        } else {
+
+            rlProgress.visibility = View.GONE
+            val groups = viewModel.getGroupListFromDB()
+            setupView(groups)
+        }
+
         setupToolbar()
         getGroupList()
 
@@ -117,7 +132,6 @@ class GroupFragment: Fragment() {
                     Status.ERROR -> {
                         Log.d(TAG, apiResponse.error.toString())
                         rlProgress.visibility = View.GONE
-
                     }
                 }
             })
@@ -201,15 +215,6 @@ class GroupFragment: Fragment() {
                 getGroupList()
                 true
             }
-            R.id.manuFav -> {
-                //Go Fragment Fav
-                val fragment = FavFragment()
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.container, fragment)
-                transaction.commit()
-                true
-            }
-
 
             R.id.manuFav ->  {
                 goToFav()
@@ -230,7 +235,6 @@ class GroupFragment: Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-
     }
 
     private fun exitFullscreen(activity: Activity) {

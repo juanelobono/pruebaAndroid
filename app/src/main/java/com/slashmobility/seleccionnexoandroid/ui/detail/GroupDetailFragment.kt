@@ -15,14 +15,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.isConnectedToNetwork
+import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
+import com.slashmobility.seleccionnexoandroid.ui.main.IShowAppBar
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity.Companion.IMAGES_GROUP
 import com.slashmobility.seleccionnexoandroid.utils.DateUtils
@@ -55,9 +56,17 @@ class GroupDetailFragment: Fragment() {
 
     private var group: Group? = null
 
+    private lateinit var eventListener: IShowAppBar
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        try {
+            eventListener = activity as MainActivity
+        } catch (e: ClassCastException) {
+            throw ClassCastException()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +74,11 @@ class GroupDetailFragment: Fragment() {
         setHasOptionsMenu(true)
 
         group = arguments?.getParcelable(GroupFragment.PARAM_GROUP)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventListener.show(true)
     }
 
     override fun onCreateView(
@@ -80,7 +94,46 @@ class GroupDetailFragment: Fragment() {
 
         group?.id?.let { id ->
 
-            getGroupList(id)
+            val isConnected = activity?.isConnectedToNetwork() ?: false
+
+            if (isConnected) {
+
+                getGroupList(id)
+
+            } else {
+
+                rlProgress.visibility = View.GONE
+                val images = viewModel.getGroupImagesByIdFromDB(id)
+
+                images?.let {
+
+                    setupView(it)
+
+                } ?: run {
+
+                    Log.e(TAG, "Group images null")
+                }
+
+            }
+        }
+
+        ivFav.setOnClickListener {
+
+            group?.isFavorite?.let { isFavorite ->
+
+                val fav = !isFavorite
+
+                if (fav) {
+
+                    ivFav.setImageResource(R.drawable.ic_favorite_black)
+                    viewModel.setFav(group!!)
+
+                } else {
+
+                    ivFav.setImageResource(R.drawable.ic_favorite_border_black)
+                    viewModel.deleteFav(group!!)
+                }
+            }
         }
 
         return view
@@ -117,6 +170,7 @@ class GroupDetailFragment: Fragment() {
                         rlProgress.visibility = View.GONE
 
                         val images = viewModel.getGroupImages(apiResponse.data!!)
+                        images.id = group?.id!!
 
                         viewModel.addGroupImagesToDB(images)
 
@@ -139,25 +193,44 @@ class GroupDetailFragment: Fragment() {
         tvDate.text = group?.date?.let { DateUtils.getDateTime(it) }
         tvDescription.text = group?.shortDescription
 
-        //Load image and save in cache
-        Glide.with(this)
-            .load(group?.imageUrl)
-            .placeholder(R.mipmap.placeholder)
-            .error(R.mipmap.placeholder)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(ivImage)
+        group?.isFavorite?.let { isFavorite ->
 
-        ivImage.setOnClickListener { //Go Fragment Fav
+            if (isFavorite) {
+
+                ivFav.setImageResource(R.drawable.ic_favorite_black)
+
+            } else {
+
+                ivFav.setImageResource(R.drawable.ic_favorite_border_black)
+            }
+        }
+
+        //Load image and save in cache
+        group?.imageUrl?.let { url ->
+
+            ivImage.loadImage(url)
+        }
+
+        ivImage.setOnClickListener {
+            //Go Fragment Fav
             val fragment = GroupImagesFragment()
                 .apply {
                     arguments = Bundle().apply {
                         putParcelable(IMAGES_GROUP, groupImages)
                     }
                 }
-            val transaction = activity!!.supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.container, fragment)
-            transaction.commit()
+
+            addFragment(fragment)
         }
+    }
+
+    private fun addFragment(fragment: Fragment) {
+
+        val ft = parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(tag)
+        ft.setReorderingAllowed(true)
+        ft.commit()
     }
 }

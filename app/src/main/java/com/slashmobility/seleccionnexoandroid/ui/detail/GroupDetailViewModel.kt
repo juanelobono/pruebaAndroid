@@ -88,6 +88,10 @@ class GroupDetailViewModel @Inject constructor(
      * Local repository
      */
 
+    fun getGroupImagesByIdFromDB(groupId: Long): GroupImages? {
+        return groupRepository.getGroupImagesById(groupId)
+    }
+
     fun getGroupImagesFromDB(): List<GroupImages> {
         return groupRepository.getGroupImages()
     }

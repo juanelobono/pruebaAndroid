@@ -3,17 +3,23 @@ package com.slashmobility.seleccionnexoandroid.ui.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IShowAppBar {
+
+    override fun show(hasToShow: Boolean) {
+
+        appBarLayout.visibility = if (hasToShow) View.VISIBLE else View.GONE
+    }
 
     companion object {
 
         private val TAG = MainActivity::class.java.simpleName + " ========>"
-        const val PARAM_GROUP = "group"
         const val IMAGES_GROUP = "images"
     }
 
@@ -24,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         loadFragment(GroupFragment())
     }
 
-    fun loadFragment(fragment: Fragment?) {
+    private fun loadFragment(fragment: Fragment?) {
         //Switching fragment
         if (fragment != null) {
             supportFragmentManager
@@ -57,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             R.id.manuFav ->  {
                 false
             }
-
             else -> false
         }
     }

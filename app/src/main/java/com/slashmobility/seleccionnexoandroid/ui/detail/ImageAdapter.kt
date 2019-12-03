@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.slashmobility.seleccionnexoandroid.R
+import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import kotlinx.android.synthetic.main.item_image.view.*
 
 class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList<String>?) : PagerAdapter() {
@@ -37,12 +36,6 @@ class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList
     private fun setupView(view: View, urlImage : String){
         val ivImage = view.ivImage
 
-        Glide.with(context)
-            .load(urlImage)
-            .placeholder(R.mipmap.placeholder)
-            .error(R.mipmap.placeholder)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(ivImage)
+        ivImage.loadImage(urlImage)
     }
 }
