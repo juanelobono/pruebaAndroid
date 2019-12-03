@@ -37,7 +37,6 @@ class ImageAdapter(private val context: Context,
     private fun setupView(view: View, urlImage : String){
         val ivImage = view.ivImage
 
-        val item = urlImage.replace(("\"").toRegex(), "")
-        ivImage.loadImage(item)
+        ivImage.loadImage(urlImage)
     }
 }

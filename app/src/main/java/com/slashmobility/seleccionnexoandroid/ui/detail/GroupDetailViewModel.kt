@@ -77,9 +77,9 @@ class GroupDetailViewModel @Inject constructor(
 
         array.forEach { item ->
 
-            val item2 = item.toString().replace(("\"").toRegex(), "")
-            Log.d("Item", item2)
-            groupImages.images?.add(item.toString())
+            val image = item.toString().replace(("\"").toRegex(), "")
+            Log.d("Image", image)
+            groupImages.images?.add(image)
         }
 
         return groupImages
