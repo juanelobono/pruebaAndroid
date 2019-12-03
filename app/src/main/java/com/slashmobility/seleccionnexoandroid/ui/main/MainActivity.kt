@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.ui.detail.GroupDetailFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IShowGroupDetail {
 
@@ -27,19 +26,17 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
 
         private val TAG = MainActivity::class.java.simpleName + " ========>"
         const val PARAM_GROUP = "group"
+        const val IMAGES_GROUP = "images"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(mainToolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
         loadFragment(GroupFragment())
     }
 
-    private fun loadFragment(fragment: Fragment?) {
+    fun loadFragment(fragment: Fragment?) {
         //Switching fragment
         if (fragment != null) {
             supportFragmentManager
@@ -69,6 +66,9 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
 
             R.id.manuRefresh ->  {
                 false
+            }
+            R.id.manuFav -> {
+               false
             }
 
             else -> false

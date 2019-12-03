@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +18,7 @@ import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
+import com.slashmobility.seleccionnexoandroid.ui.fav.FavFragment
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -66,7 +70,7 @@ class GroupFragment: Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GroupViewModel::class.java)
 
         initView(view)
-
+        setupToolbar()
         getGroupList()
 
         return view
@@ -160,8 +164,29 @@ class GroupFragment: Fragment() {
                 getGroupList()
                 true
             }
+            R.id.manuFav -> {
+                //Go Fragment Fav
+                val fragment = FavFragment()
+                val transaction = activity!!.supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.container, fragment)
+                transaction.commit()
+                true
+            }
+
 
             else -> false
         }
+    }
+
+    private fun setupToolbar(){
+        //Setup Toolbar MainActivity
+        val toolbar = activity!!.findViewById<View>(R.id.mainToolbar) as Toolbar
+        toolbar.title = getString(R.string.title_main_activity)
+        toolbar.setTitleTextColor(ContextCompat.getColor(context!!, R.color.md_white_1000))
+
+        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
     }
 }
