@@ -3,12 +3,19 @@ package com.slashmobility.seleccionnexoandroid.ui.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IShowAppBar {
+
+    override fun show(hasToShow: Boolean) {
+
+        appBarLayout.visibility = if (hasToShow) View.VISIBLE else View.GONE
+    }
 
     companion object {
 
@@ -53,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             R.id.manuRefresh ->  {
                 false
             }
+
             R.id.manuFav -> {
                false
             }

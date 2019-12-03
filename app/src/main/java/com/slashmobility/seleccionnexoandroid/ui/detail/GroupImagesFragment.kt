@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
+import com.slashmobility.seleccionnexoandroid.ui.main.IShowAppBar
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import dagger.android.support.AndroidSupportInjection
 
@@ -25,10 +23,17 @@ class GroupImagesFragment : Fragment() {
     private lateinit var viewPage: ViewPager
     private lateinit var imagesAdapter : ImageAdapter
     private lateinit var groupImages : GroupImages
+    private lateinit var eventListener: IShowAppBar
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        try {
+            eventListener = activity as MainActivity
+        } catch (e: ClassCastException) {
+            throw ClassCastException()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +62,8 @@ class GroupImagesFragment : Fragment() {
         viewPage.adapter = imagesAdapter
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         //Setup Toolbar MainActivity
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        eventListener.show(false)
     }
 }

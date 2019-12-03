@@ -23,6 +23,8 @@ import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
+import com.slashmobility.seleccionnexoandroid.ui.main.IShowAppBar
+import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity.Companion.IMAGES_GROUP
 import com.slashmobility.seleccionnexoandroid.utils.DateUtils
 import com.slashmobility.seleccionnexoandroid.utils.Status
@@ -54,9 +56,17 @@ class GroupDetailFragment: Fragment() {
 
     private var group: Group? = null
 
+    private lateinit var eventListener: IShowAppBar
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        try {
+            eventListener = activity as MainActivity
+        } catch (e: ClassCastException) {
+            throw ClassCastException()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +74,11 @@ class GroupDetailFragment: Fragment() {
         setHasOptionsMenu(true)
 
         group = arguments?.getParcelable(GroupFragment.PARAM_GROUP)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventListener.show(true)
     }
 
     override fun onCreateView(
@@ -89,7 +104,16 @@ class GroupDetailFragment: Fragment() {
 
                 rlProgress.visibility = View.GONE
                 val images = viewModel.getGroupImagesByIdFromDB(id)
-                setupView(images!!)
+
+                images?.let {
+
+                    setupView(it)
+
+                } ?: run {
+
+                    Log.e(TAG, "Group images null")
+                }
+
             }
         }
 
