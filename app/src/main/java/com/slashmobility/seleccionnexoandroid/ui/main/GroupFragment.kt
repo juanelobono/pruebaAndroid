@@ -15,6 +15,8 @@ import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
+import com.slashmobility.seleccionnexoandroid.ui.detail.GroupDetailFragment
+import com.slashmobility.seleccionnexoandroid.ui.fav.FavFragment
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -29,6 +31,8 @@ class GroupFragment: Fragment() {
     companion object {
 
         private val TAG = GroupFragment::class.java.simpleName + " ========>"
+        const val PARAM_GROUP = "group"
+        const val PARAM_FAV_GROUPS = "favGroups"
     }
 
     @Inject
@@ -38,17 +42,10 @@ class GroupFragment: Fragment() {
     private lateinit var rvGroups: RecyclerView
     private lateinit var llEmptyGroups: LinearLayout
     private lateinit var groupsAdapter: GroupsAdapter
-    private lateinit var groupListener: IShowGroupDetail
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
-
-        try {
-            groupListener = activity as MainActivity
-        } catch (e: ClassCastException) {
-            throw ClassCastException()
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,7 +132,7 @@ class GroupFragment: Fragment() {
 
                 groupsAdapter.onItemClick = { group ->
 
-                    groupListener.show(group)
+                    goToDetail(group)
                 }
 
             } else {
@@ -144,6 +141,41 @@ class GroupFragment: Fragment() {
                 llEmptyGroups.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun goToDetail(group: Group) {
+
+        val fragment = GroupDetailFragment()
+            .apply {
+                arguments = Bundle().apply {
+                    putParcelable(PARAM_GROUP, group)
+                }
+            }
+
+        addFragment(fragment)
+    }
+
+    private fun goToFav() {
+
+        val favGroups = viewModel.getFavsFromDB()
+        val fragment = FavFragment()
+            .apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(PARAM_FAV_GROUPS, favGroups)
+                }
+            }
+
+        addFragment(fragment)
+    }
+
+    private fun addFragment(fragment: Fragment) {
+
+        val ft = parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(tag)
+        ft.setReorderingAllowed(true)
+        ft.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -158,6 +190,11 @@ class GroupFragment: Fragment() {
 
             R.id.manuRefresh ->  {
                 getGroupList()
+                true
+            }
+
+            R.id.manuFav ->  {
+                goToFav()
                 true
             }
 

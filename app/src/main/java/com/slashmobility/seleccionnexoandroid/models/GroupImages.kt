@@ -18,13 +18,7 @@ import kotlinx.android.parcel.Parcelize
 data class GroupImages(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var images: ArrayList<String>? = null
-    ) : Parcelable {
-
-    fun customMethod(): String {
-
-        return ""
-    }
-}
+    ) : Parcelable
 
 class ImagesConverter {
 

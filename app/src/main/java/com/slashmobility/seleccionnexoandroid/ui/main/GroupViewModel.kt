@@ -11,7 +11,6 @@ import com.slashmobility.seleccionnexoandroid.domain.GroupRepository
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
-import com.slashmobility.seleccionnexoandroid.remote.responses.GroupResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -89,6 +88,12 @@ class GroupViewModel @Inject constructor(
 
     fun addGroupToDB(group: Group) {
         groupRepository.addGroup(group)
+    }
+
+    fun getFavsFromDB(): ArrayList<Group> {
+        val array = arrayListOf<Group>()
+        array.addAll(groupRepository.getFavGroups())
+        return array
     }
 
     /**

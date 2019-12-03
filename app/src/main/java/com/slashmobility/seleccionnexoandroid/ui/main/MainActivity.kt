@@ -7,26 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.slashmobility.seleccionnexoandroid.R
-import com.slashmobility.seleccionnexoandroid.models.Group
-import com.slashmobility.seleccionnexoandroid.ui.detail.GroupDetailFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IShowGroupDetail {
-
-    override fun show(group: Group) {
-        val fragment = GroupDetailFragment()
-            .apply {
-            arguments = Bundle().apply {
-                putParcelable(PARAM_GROUP, group)
-            }
-        }
-        loadFragment(fragment)
-    }
+class MainActivity : AppCompatActivity() {
 
     companion object {
 
         private val TAG = MainActivity::class.java.simpleName + " ========>"
-        const val PARAM_GROUP = "group"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +33,6 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .addToBackStack(null)
                 .commit()
         }
     }
@@ -68,6 +54,10 @@ class MainActivity : AppCompatActivity(), IShowGroupDetail {
         return when (item.itemId) {
 
             R.id.manuRefresh ->  {
+                false
+            }
+
+            R.id.manuFav ->  {
                 false
             }
 

@@ -20,6 +20,7 @@ import com.slashmobility.seleccionnexoandroid.factory.ViewModelFactory
 import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
+import com.slashmobility.seleccionnexoandroid.ui.main.GroupFragment
 import com.slashmobility.seleccionnexoandroid.ui.main.MainActivity
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
@@ -58,7 +59,7 @@ class GroupDetailFragment: Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        group = arguments?.getParcelable(MainActivity.PARAM_GROUP)
+        group = arguments?.getParcelable(GroupFragment.PARAM_GROUP)
     }
 
     override fun onCreateView(

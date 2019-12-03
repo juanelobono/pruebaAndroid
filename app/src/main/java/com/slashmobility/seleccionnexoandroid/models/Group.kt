@@ -20,10 +20,4 @@ data class Group(
     @SerializedName("descriptionShort") var shortDescription: String = "",
     @SerializedName("name") var name: String = "",
     var isFavorite: Boolean = false
-    ) : Parcelable {
-
-    fun customMethod(): String {
-
-        return ""
-    }
-}
+    ) : Parcelable

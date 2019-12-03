@@ -3,7 +3,6 @@ package com.slashmobility.seleccionnexoandroid.ui.detail
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.slashmobility.seleccionnexoandroid.BuildConfig
 import com.slashmobility.seleccionnexoandroid.database.daos.GroupDao
@@ -13,7 +12,6 @@ import com.slashmobility.seleccionnexoandroid.models.Group
 import com.slashmobility.seleccionnexoandroid.models.GroupImages
 import com.slashmobility.seleccionnexoandroid.remote.ApiResponse
 import com.slashmobility.seleccionnexoandroid.remote.api.ApiClient
-import com.slashmobility.seleccionnexoandroid.remote.responses.GroupResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
