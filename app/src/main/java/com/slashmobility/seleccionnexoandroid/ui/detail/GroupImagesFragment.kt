@@ -1,6 +1,9 @@
 package com.slashmobility.seleccionnexoandroid.ui.detail
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,5 +70,27 @@ class GroupImagesFragment : Fragment(){
     private fun setupToolbar() {
         //Setup Toolbar MainActivity
         eventListener.show(false)
+        setFullscreen(activity!!)
     }
+
+    private fun isImmersiveAvailable(): Boolean {
+        return Build.VERSION.SDK_INT >= 19
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private fun setFullscreen(activity : Activity) {
+        var flags = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+
+        if (isImmersiveAvailable()) {
+            flags = View.SYSTEM_UI_FLAG_IMMERSIVE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_FULLSCREEN
+        }
+
+        activity.window.decorView.systemUiVisibility = flags
+    }
+
 }

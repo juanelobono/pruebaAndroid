@@ -90,7 +90,6 @@ class GroupFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        exitFullscreen(activity!!)
     }
 
     private fun getGroupList() {
@@ -235,9 +234,5 @@ class GroupFragment: Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-    }
-
-    private fun exitFullscreen(activity: Activity) {
-        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 }

@@ -1,11 +1,10 @@
 package com.slashmobility.seleccionnexoandroid.ui.detail
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -30,6 +29,7 @@ import com.slashmobility.seleccionnexoandroid.utils.DateUtils
 import com.slashmobility.seleccionnexoandroid.utils.Status
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+
 
 /**
  * Created by Leo ¯\_(ツ)_/¯ on 2019-12-02
@@ -76,9 +76,16 @@ class GroupDetailFragment: Fragment() {
         group = arguments?.getParcelable(GroupFragment.PARAM_GROUP)
     }
 
+    override fun onPrepareOptionsMenu( menu : Menu) {
+        menu.findItem(R.id.manuFav).isVisible = false
+        menu.findItem(R.id.manuRefresh).isVisible = false
+        super.onPrepareOptionsMenu(menu);
+    }
+
     override fun onResume() {
         super.onResume()
         eventListener.show(true)
+        exitFullscreen(activity!!)
     }
 
     override fun onCreateView(
@@ -232,5 +239,9 @@ class GroupDetailFragment: Fragment() {
             .addToBackStack(tag)
         ft.setReorderingAllowed(true)
         ft.commit()
+    }
+
+    private fun exitFullscreen(activity: Activity) {
+        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 }
