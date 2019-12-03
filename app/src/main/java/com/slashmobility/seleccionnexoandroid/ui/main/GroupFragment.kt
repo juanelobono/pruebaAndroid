@@ -88,10 +88,6 @@ class GroupFragment: Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun getGroupList() {
 
         viewModel.getGroupListRequest()
