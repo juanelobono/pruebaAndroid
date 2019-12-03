@@ -9,13 +9,14 @@ import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList<String>?) : PagerAdapter() {
+class ImageAdapter(private val context: Context,
+                   private val imagesUrl: ArrayList<String>?) : PagerAdapter() {
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_image, collection, false) as ViewGroup
 
-        setupView(view, imagesUrl!!.get(position))
+        setupView(view, imagesUrl!![position])
         collection.addView(view)
 
         return view
@@ -36,6 +37,7 @@ class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList
     private fun setupView(view: View, urlImage : String){
         val ivImage = view.ivImage
 
-        ivImage.loadImage(urlImage)
+        val item = urlImage.replace(("\"").toRegex(), "")
+        ivImage.loadImage(item)
     }
 }
