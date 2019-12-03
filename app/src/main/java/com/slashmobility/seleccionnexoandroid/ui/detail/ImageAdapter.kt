@@ -9,7 +9,8 @@ import com.slashmobility.seleccionnexoandroid.R
 import com.slashmobility.seleccionnexoandroid.extensions.loadImage
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList<String>?) : PagerAdapter() {
+class ImageAdapter(private val context: Context,
+                   private val imagesUrl: ArrayList<String>?) : PagerAdapter() {
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(context)
