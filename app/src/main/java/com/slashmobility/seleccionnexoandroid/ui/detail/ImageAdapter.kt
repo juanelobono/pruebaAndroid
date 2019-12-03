@@ -16,7 +16,7 @@ class ImageAdapter(private val context:Context, private val imagesUrl: ArrayList
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_image, collection, false) as ViewGroup
 
-        setupView(view, imagesUrl!!.get(position))
+        setupView(view, imagesUrl!![position])
         collection.addView(view)
 
         return view

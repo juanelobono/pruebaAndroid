@@ -1,5 +1,6 @@
 package com.slashmobility.seleccionnexoandroid.ui.main
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -70,6 +71,11 @@ class GroupFragment: Fragment() {
         getGroupList()
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        exitFullscreen(activity!!)
     }
 
     private fun getGroupList() {
@@ -221,8 +227,13 @@ class GroupFragment: Fragment() {
         toolbar.setTitleTextColor(ContextCompat.getColor(context!!, R.color.md_white_1000))
 
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayShowHomeEnabled(false)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
+    }
+
+    private fun exitFullscreen(activity: Activity) {
+        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 }

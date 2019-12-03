@@ -54,10 +54,6 @@ class MainActivity : AppCompatActivity() {
             R.id.manuRefresh ->  {
                 false
             }
-            R.id.manuFav -> {
-               false
-            }
-
             R.id.manuFav ->  {
                 false
             }
