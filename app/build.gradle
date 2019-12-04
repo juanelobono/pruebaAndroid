@@ -11,12 +11,16 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
+
     defaultConfig {
         applicationId "com.slashmobility.seleccionnexoandroid"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+
+        def code = getVersionCodeAutoincrement()
+        versionCode code
+        versionName code + ".0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -55,6 +59,37 @@ android {
             debuggable true
         }
     }
+
+    applicationVariants.all { variant ->
+        if (variant.name.contains('release')) {
+            variant.outputs.each { output ->
+                variant.outputs.all {
+                    outputFileName = "PRUEBA_${variant.name}_${variant.versionName}.apk"
+                }
+            }
+        }
+        if(variant.name.contains('debug')){
+            variant.outputs.each { output ->
+                variant.outputs.all {
+                    outputFileName = "PRUEBA_${variant.name}_${variant.versionName}.apk"
+                }
+            }
+        }
+    }
+}
+
+def getVersionCodeAutoincrement(){
+
+    def versionPropsFile = file('version.properties')
+    def versionProps
+
+    if (versionPropsFile.canRead()) {
+        versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+    }
+
+    def code = versionProps['VERSION_CODE_RELEASE'].toInteger()
+    return (int)code
 }
 
 dependencies {
@@ -80,9 +115,17 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_constraintlayout_version"
+
+    //Test Implementation
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0', {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    })
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.2.1"
 
     //Material design
     implementation "com.google.android.material:material:$material_version"
