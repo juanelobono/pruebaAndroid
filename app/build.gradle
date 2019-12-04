@@ -29,15 +29,14 @@ android {
                 arguments = ["room.incremental": "true"]
             }
         }
+
+        dexOptions {
+            javaMaxHeapSize "4g"
+        }
     }
 
     androidExtensions {
         experimental = true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -58,6 +57,35 @@ android {
 
             debuggable true
         }
+    }
+
+    lintOptions {
+        abortOnError false
+        ignoreWarnings true
+        showAll true
+    }
+
+    jacoco {
+        version "0.8.4"
+    }
+
+    testOptions {
+        unitTests {
+            all {
+                testLogging {
+                    showStandardStreams = true
+                    outputs.upToDateWhen {false}
+                    events "passed", "failed"
+                    showCauses true
+                    showExceptions true
+                }
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     applicationVariants.all { variant ->
