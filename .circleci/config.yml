@@ -8,6 +8,7 @@ jobs:
     environment:
       - JVM_OPTS: -Xmx3200m
     steps:
+      -checkout
       - run:
           name: Download Dependencies RELEASE
           command: ./gradlew androidDependencies
@@ -23,6 +24,7 @@ jobs:
     environment:
       - JVM_OPTS: -Xmx3200m
     steps:
+      -checkout
        #Restauro Caches
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
@@ -57,6 +59,7 @@ jobs:
     environment:
       - JVM_OPTS: -Xmx3200m
     steps:
+      -checkout
         #Restauro Caches
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
