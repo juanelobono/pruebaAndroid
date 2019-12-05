@@ -78,18 +78,21 @@ workflows:
   version: 2
   workflow:
     jobs:
+################################### Init ###################################
     - init:
         filters:
           branches:
             only:
               - master
               - desarrollo
+################################### Release ###################################
     - release:
         requires:
           - init
         filters:
           branches:
             only: master
+################################### Debug ###################################
     - debug:
         requires:
           - init
