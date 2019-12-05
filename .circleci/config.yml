@@ -35,14 +35,14 @@ jobs:
         paths:
         - ~/.gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-     #Ejecutos Test
+     #Ejecutos Test y guardo el reporte de resultado
      - run:
          name: Run Tests RELEASE
          command: ./gradlew lint test
     - store_artifacts:
         path: app/build/reports
         destination: reports   
-    #Creo el Apk
+    #Creo el Apk y la guardo como artefacto
     - run:
          name: Run Build RELEASE
          command: ./gradlew :app:assembleRelease
@@ -51,7 +51,7 @@ jobs:
          destination: artifact-file
     - store_test_results:
         path: app/build/test-results
-        
+############################################## AMBIENTE DEBUG ############################################################################# 
   debug:
     working_directory: ~/code
     docker:
@@ -69,14 +69,14 @@ jobs:
         paths:
         - ~/.gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-    #Ejecutos Test
+    #Ejecutos Test y guardo el reporte de resultado
     - run:
         name: Run Tests DEBUG
         command: ./gradlew lint test
     - store_artifacts:
         path: app/build/reports
         destination: reports   
-    #Creo el Apk
+    #Creo el Apk y la guardo como artefacto
     - run:
          name: Run Build DEBUG
          command: ./gradlew :app:assembleDebug
@@ -85,7 +85,7 @@ jobs:
          destination: artifact-file
     - store_test_results:
         path: app/build/test-results
-    
+############################################## CONFIGURACION RAMAS #############################################################################
 workflows:
   version: 2
   workflow:
