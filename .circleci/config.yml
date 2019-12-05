@@ -16,7 +16,6 @@ jobs:
         paths:
         - ~/.gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-##########################################################
 ############################################## AMBIENTE RELEASE #############################################################################
   release:
     working_directory: ~/code
