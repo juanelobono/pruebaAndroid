@@ -92,10 +92,10 @@ workflows:
   workflow:
     jobs:
       - release:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - debug:
-        filters:
-          branches:
-            only: desarrollo
+          filters:
+            branches:
+              only: desarrollo
