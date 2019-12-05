@@ -91,11 +91,15 @@ workflows:
   version: 2
   workflow:
     jobs:
-    - release:
+      - release:
+          requires:
+            - init
           filters:
             branches:
               only: master
-    - debug:
+      - debug:
+          requires:
+            - init
           filters:
             branches:
               only: develop
