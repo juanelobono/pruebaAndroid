@@ -24,8 +24,7 @@ jobs:
     environment:
       - JVM_OPTS: -Xmx3200m
     steps:
-      - checkout
-    #Restauro Caches
+       #Restauro Caches
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -59,8 +58,7 @@ jobs:
     environment:
       - JVM_OPTS: -Xmx3200m
     steps:
-      - checkout
-      #Restauro Caches
+        #Restauro Caches
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
