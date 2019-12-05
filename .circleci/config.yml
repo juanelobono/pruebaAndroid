@@ -91,6 +91,12 @@ workflows:
   version: 2
   workflow:
     jobs:
+      - init:
+          filters:
+            branches:
+              only:
+                - master
+                - desarrollo
       - release:
           requires:
             - init
