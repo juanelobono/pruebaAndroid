@@ -30,7 +30,7 @@ jobs:
     - restore_cache:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
      #Ejecutos Test y guardo el reporte de resultado
-     - run:
+    - run:
          name: Run Tests RELEASE
          command: ./gradlew lint test
     - store_artifacts:
