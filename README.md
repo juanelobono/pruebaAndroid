@@ -15,9 +15,6 @@ Proyecto realizado respetando los patrones de diseño y las mejores prácticas d
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-Mira **Deployment** para conocer como desplegar el proyecto.
-
-
 ### Instalación 🔧
 
 _Descarga el repositorio desde tu consola de comandos_
@@ -59,14 +56,11 @@ Click derecho sobre GroupViewModelTest -> Run 'GroupViewModelTest'
 * [Room](https://developer.android.com/jetpack/androidx/releases/room) - Acceso más robusto a la base de datos y aprovechamiento de toda la potencia de SQLite
 * [Gson](https://github.com/google/gson) - Serialización/Deserialización
 
-
 ## Versionado 📌
 
-Usamos [CircleCI](https://circleci.com/) para el versionado.
+Utilizamos [CircleCI](https://circleci.com/) para el versionado.
 
 ## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
 * **Federico Córdoba** - [fedecordoba11](https://github.com/fedecordoba11)
 * **Leonardo Lovera** - [leinhio](https://github.com/leinhio)
