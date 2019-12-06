@@ -2,6 +2,15 @@
 
 Proyecto de prueba para Android Senior de Slash Mobility
 
+Proyecto realizado respetando los patrones de diseño y las mejores prácticas de programación.
+
+* [Kotlin](https://kotlinlang.org/) - Lenguaje de programación
+* [Model-View-ViewModel (MVVM)](https://developer.android.com/topic/libraries/architecture/viewmodel) - Arquitectura elegida
+
+<p align="center">
+  <img width="700" height="550" src="https://i.stack.imgur.com/e38Cn.png">
+</p>
+
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
