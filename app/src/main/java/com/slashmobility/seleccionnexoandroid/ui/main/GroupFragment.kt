@@ -114,8 +114,11 @@ class GroupFragment: Fragment() {
                         groups.forEach { groupData ->
 
                             val groupDB = viewModel.getGroupById(groupData.id)
-                            val isGroupFav = groupDB!!.isFavorite
-                            groupData.isFavorite = isGroupFav
+
+                            groupDB?.isFavorite?.let { isGroupFav ->
+
+                                groupData.isFavorite = isGroupFav
+                            }
 
                             val group = Group()
                             group.apply {
@@ -126,7 +129,7 @@ class GroupFragment: Fragment() {
                                 description = groupData.description
                                 shortDescription = groupData.shortDescription
                                 name = groupData.name
-                                isFavorite = isGroupFav
+                                isFavorite = groupData.isFavorite
                             }
 
                             viewModel.addGroupToDB(group)
