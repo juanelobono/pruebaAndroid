@@ -96,6 +96,11 @@ class GroupViewModel @Inject constructor(
         return array
     }
 
+    fun getGroupById(groupId: Long?): Group?{
+        return groupRepository.getGroupById(groupId)
+    }
+
+
     /**
      * Clear disposables
      */
