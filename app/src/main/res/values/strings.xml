@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SeleccionNexoAndroid</string>
+    
+    <string name="empty_groups">No hay grupos</string>
+    <string name="text_menu_fav">Favoritos</string>
+    <string name="text_menu_refresh">Refresh</string>
+
+    <string name="title_main_activity">Practica</string>
+    <string name="title_fav_fragment">Favoritos</string>
+
 </resources>

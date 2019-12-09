@@ -1,11 +1,61 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="LightTheme" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="textColor">@color/colorText</item>
+        <item name="selectedTextColor">@color/colorAccent</item>
+        <item name="secondaryTextColor">@color/colorNormalText</item>
+        <item name="backgroundColor">@color/colorBackground</item>
+        <item name="detailsColor">@color/colorDetails</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
+        <item name="colorControlNormal">@color/md_white_1000</item>
     </style>
 
+    <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="textColor">@color/colorTextNight</item>
+        <item name="selectedTextColor">@color/colorAccentNight</item>
+        <item name="secondaryTextColor">@color/colorNormalTextNight</item>
+        <item name="backgroundColor">@color/colorBackgroundNight</item>
+        <item name="detailsColor">@color/colorDetailsNight</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackgroundNight</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorBackgroundNight</item>
+        <item name="colorControlNormal">@color/md_white_1000</item>
+    </style>
+
+    <style name="TextGroupPrimary">
+        <item name="android:textColor">?attr/secondaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:background">?attr/detailsColor</item>
+    </style>
+
+    <style name="TextGroupSecondary">
+        <item name="android:textColor">?attr/secondaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:background">?attr/detailsColor</item>
+    </style>
+
+    <style name="TextGroupDescription">
+        <item name="android:textColor">?attr/secondaryTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextEmptyGroup">
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
